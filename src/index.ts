@@ -66,6 +66,7 @@ export class ImportUtil {
       let declaration = this.insertAfterExistingImports(
         this.t.importDeclaration([], this.t.stringLiteral(moduleSpecifier))
       );
+      declaration.requeue();
       return this.addSpecifier(target, declaration, exportedName, nameHint);
     }
   }
@@ -73,9 +74,10 @@ export class ImportUtil {
   importForSideEffect(moduleSpecifier: string): void {
     let declaration = this.findImportFrom(moduleSpecifier);
     if (!declaration) {
-      this.insertAfterExistingImports(
+      declaration = this.insertAfterExistingImports(
         this.t.importDeclaration([], this.t.stringLiteral(moduleSpecifier))
       );
+      declaration.requeue();
     }
   }
 
